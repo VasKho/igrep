@@ -1,9 +1,15 @@
 ;;; igrep --- Package to interactively grep current buffer directory
+;;;
+;;; Author: vaslch0 <vasya.khoroshavin@gmail.com>
+;;; URL: https://github.com/VasKho/igrep
+;;; Package-Requires: (cl-lib json posframe)
 ;;; Commentary:
+;;; Provides simple interface to interactively grep files in current buffer directory
 ;;; Code:
 
 (require 'posframe)
 (require 'json)
+(require 'cl-lib)
 
 (defvar igrep--input-buffer "*igrep-input*")
 (defvar igrep--candidate-buffer "*igrep-candidate*")
