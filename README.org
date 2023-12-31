@@ -20,9 +20,9 @@ You need to install [[https://github.com/BurntSushi/ripgrep][ripgrep]].
 It's possible to set new binds on the following functions:
 
 |-----------------------------+------------------|
-| Function                    | Default bind     |
 | igrep                       | No bind          |
 | igrep-select-next-candidate | C-n or TAB       |
 | igrep-select-prev-candidate | C-p or <backtab> |
 | igrep-quit                  | C-g              |
+| Function                    | Default bind     |
 |-----------------------------+------------------|
