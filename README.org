@@ -23,6 +23,7 @@ It's possible to set new binds on the following functions:
 | igrep                       | No bind          |
 | igrep-select-next-candidate | C-n or TAB       |
 | igrep-select-prev-candidate | C-p or <backtab> |
+| igrep-open-file-at-line     | RET              |
 | igrep-quit                  | C-g              |
 | Function                    | Default bind     |
 |-----------------------------+------------------|

@@ -200,6 +200,17 @@ INPUT is a search result in ripgrep json format."
 	    (select-window (get-buffer-window igrep--input-buffer)))
 	(igrep--view-file-at-line (plist-get prev-info :path) (plist-get prev-info :line))))))
 
+;;;###autoload
+(defun igrep-open-file-at-line ()
+  "Open FILE on LINE."
+  (interactive)
+  (with-current-buffer (get-buffer-create igrep--candidate-buffer)
+    (let* ((current-line (string-to-number (nth 1 (split-string (what-line) " "))))
+	   (current-info (nth (- current-line 1) igrep--search-results)))
+      (igrep-quit)
+      (find-file (plist-get current-info :path))
+      (forward-line (1- (plist-get current-info :line))))))
+
 (defvar igrep-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-g") 'igrep-quit)
@@ -208,6 +219,7 @@ INPUT is a search result in ripgrep json format."
     (define-key map (kbd "TAB") 'igrep-select-next-candidate)
     (define-key map (kbd "C-p") 'igrep-select-prev-candidate)
     (define-key map (kbd "<backtab>") 'igrep-select-prev-candidate)
+    (define-key map (kbd "RET") 'igrep-open-file-at-line)
     map)
   "Keymap used by `igrep-mode'.")
 
