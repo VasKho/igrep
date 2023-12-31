@@ -26,7 +26,7 @@
   (when (not (eq (current-buffer) igrep--return-buffer))
     (kill-current-buffer))
   (view-file file)
-  (goto-line line)
+  (forward-line line)
   (select-window (get-buffer-window igrep--input-buffer)))
 
 (defun igrep--listen-input (begin end length)
@@ -133,7 +133,7 @@ INPUT is a search result in ripgrep json format."
 	    (insert (format "%s: %s\n" (file-name-nondirectory path) line))
 	    (push `(:path ,path :line ,line) igrep--search-results))))
       (read-only-mode 1)
-      (goto-line 1))
+      (goto-char (point-min)))
     (setq igrep--start-flag t)
     (setq igrep--search-results (reverse igrep--search-results))))
 
@@ -166,13 +166,14 @@ INPUT is a search result in ripgrep json format."
 	   (current-info nil))
       (if (not igrep--start-flag)
 	  (when (not (= (count-lines (point-min) (point-max)) prev-line))
-	    (next-line)
+	    (forward-line 1)
 	    (setq current-line (string-to-number (nth 1 (split-string (what-line) " "))))
 	    (setq current-info (nth (- current-line 1) igrep--search-results))
 	    (if (string-equal (plist-get prev-info :path) (plist-get current-info :path))
 		(progn
 		  (select-window igrep--result-window)
-		  (goto-line (plist-get current-info :line))
+		  (goto-char (point-min))
+		  (forward-line (plist-get current-info :line))
 		  (select-window (get-buffer-window igrep--input-buffer)))
 	      (igrep--view-file-at-line (plist-get current-info :path) (plist-get current-info :line))))
 	(progn
@@ -188,13 +189,14 @@ INPUT is a search result in ripgrep json format."
 	   (current-info (nth (- current-line 1) igrep--search-results))
 	   (prev-line nil)
 	   (prev-info nil))
-      (previous-line)
+      (forward-line -1)
       (setq prev-line (string-to-number (nth 1 (split-string (what-line) " "))))
       (setq prev-info (nth (- prev-line 1) igrep--search-results))
       (if (string-equal (plist-get prev-info :path) (plist-get current-info :path))
 	  (progn
 	    (select-window igrep--result-window)
-	    (goto-line (plist-get prev-info :line))
+	    (goto-char (point-min))
+	    (forward-line (plist-get prev-info :line))
 	    (select-window (get-buffer-window igrep--input-buffer)))
 	(igrep--view-file-at-line (plist-get prev-info :path) (plist-get prev-info :line))))))
 
