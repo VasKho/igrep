@@ -1,0 +1,28 @@
+* ws-selector
+
+This plugin is developed to interactively run recursive grep of files contents in current buffer directory.
+
+* Installation
+
+This package isn't available on [[https://melpa.org][MELPA]], so to install it you may use [[https://github.com/radian-software/straight.el][straight]] or just copy ~igrep.el~ to your emacs configuration directory.
+
+*Requirements*
+You need to install [[https://github.com/BurntSushi/ripgrep][ripgrep]].
+
+#+begin_src emacs-lisp
+  (use-package igrep
+    :straight (igrep :type git :host github :repo "VasKho/igrep")
+    :bind ("M-s M-r" . igrep))
+#+end_src
+
+* Configuration
+
+It's possible to set new binds on the following functions:
+
+|-----------------------------+------------------|
+| Function                    | Default bind     |
+| igrep                       | No bind          |
+| igrep-select-next-candidate | C-n or TAB       |
+| igrep-select-prev-candidate | C-p or <backtab> |
+| igrep-quit                  | C-g              |
+|-----------------------------+------------------|
