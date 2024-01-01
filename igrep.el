@@ -92,7 +92,8 @@ Accepts BEGIN, END and LENGTH, but this info isn't used."
   (with-current-buffer (get-buffer-create igrep--input-buffer)
     (erase-buffer)
     (igrep-mode)
-    (company-mode 0)
+    (when (fboundp 'company-mode)
+      (company-mode 0))
     (setq-local left-margin-width 1)
     (setq-local right-margin-width 1))
 
